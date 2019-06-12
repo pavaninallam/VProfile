@@ -1,10 +1,7 @@
 pipeline {
 	agent any
-  tools {
-    maven 'localmaven'
-    }
 	stages{ 
-		stage('Build') { 
+		stage('Build'){ 
 			steps { 
 				sh 'mvn clean package' 
 			} 
@@ -15,6 +12,9 @@ pipeline {
 				} 
 			} 
 		} 
-		
-    }	
-}
+		stage ('Deploy to Staging'){ 
+			steps { build job: 'deploy-to-staging' 
+				}
+		}
+	}
+}	
