@@ -1,13 +1,9 @@
 pipeline {
     agent any
-    tools {
-        maven 'localmaven'
-        
-    }
     stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -16,6 +12,14 @@ pipeline {
                 }
             }
         }
+        stage ('Deploy to Staging'){
+            steps {
+                build job: 'Deploy-to-staging'
+            }
+        }
+
         
+
+
     }
 }
