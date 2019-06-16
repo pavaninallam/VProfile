@@ -27,7 +27,7 @@ pipeline {
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "scp -i /home/ec2-user/Devops.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat8/webapps"
+                        sh "sshpass -p 'redhat' scp **/target/*.war root@${params.tomcat_dev}:/var/lib/tomcat8/webapps"
                     }
                 }
 
